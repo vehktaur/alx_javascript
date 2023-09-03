@@ -5,4 +5,4 @@ const addMeMaybe = (number, theFunction) => {
   theFunction(number);
 };
 
-exports = { addMeMaybe };
+module.exports = { addMeMaybe };
