@@ -3,11 +3,10 @@
 const request = require('request');
 const url = process.argv[2];
 
-let todo = [];
 let myObject = {};
 let value;
 request.get(url, (error, response, body) => {
-  todo = JSON.parse(body);
+  let todo = JSON.parse(body);
   for (let obj of todo) {
     value = 0
     if (obj.completed) {
