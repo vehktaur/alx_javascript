@@ -3,12 +3,12 @@
 const request = require('request');
 const url = process.argv[2];
 
-let myObject = {};
-let value;
 request.get(url, (error, response, body) => {
   let todo = JSON.parse(body);
+  let myObject = {};
+  let value;
   for (let obj of todo) {
-    value = 0
+    value = 0;
     if (obj.completed) {
       let property = obj.userId;
       if (myObject.hasOwnProperty(property)) {
@@ -17,7 +17,7 @@ request.get(url, (error, response, body) => {
       }
       myObject = {
         ...myObject,
-        [property]: value+1
+        [property]: value + 1
       };
     }
   }
