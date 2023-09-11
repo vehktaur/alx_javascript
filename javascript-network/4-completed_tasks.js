@@ -17,7 +17,7 @@ request.get(url, (error, response, body) => {
       }
       myObject = {
         ...myObject,
-        [property]: value + 1
+        [property]: value++
       };
     }
   }
