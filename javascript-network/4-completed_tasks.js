@@ -10,7 +10,7 @@ request.get(url, (error, response, body) => {
   for (let obj of todos) {
     if (obj.completed) {
       let property = String(obj.userId);
-      if (property in myObject) {
+      if (myObject.hasOwnProperty(property)) {
         tasksCompleted = Number(myObject[property]);
       } else {
         tasksCompleted = 0;
