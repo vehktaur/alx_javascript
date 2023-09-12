@@ -10,14 +10,14 @@ request.get(url, (error, response, body) => {
   for (let obj of todos) {
     if (obj.completed) {
       let property = String(obj.userId);
-      if (myObject.hasOwnProperty(property)) {
+      if (property in myObject) {
         tasksCompleted = Number(myObject[property]);
       } else {
         tasksCompleted = 0;
       }
       myObject = {
         ...myObject,
-        [property]: tasksCompleted++
+        [property]: ++tasksCompleted
       };
     }
   }
