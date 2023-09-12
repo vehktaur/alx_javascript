@@ -5,21 +5,21 @@ const url = process.argv[2];
 
 request.get(url, (error, response, body) => {
   let todos = JSON.parse(body);
-  let myObject = {};
+  let completedTasksObject = {};
   let tasksCompleted;
-  for (let obj of todos) {
-    if (obj.completed) {
-      let property = String(obj.userId);
-      if (property in myObject) {
-        tasksCompleted = Number(myObject[property]);
+  for (let item of todos) {
+    if (item.completed) {
+      let property = String(item.userId);
+      if (property in completedTasksObject) {
+        tasksCompleted = Number(completedTasksObject[property]);
       } else {
         tasksCompleted = 0;
       }
-      myObject = {
-        ...myObject,
+      completedTasksObject = {
+        ...completedTasksObject,
         [property]: ++tasksCompleted
       };
     }
   }
-  console.log(myObject);
+  console.log(completedTasksObject);
 });
