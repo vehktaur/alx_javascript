@@ -6,18 +6,18 @@ const url = process.argv[2];
 request.get(url, (error, response, body) => {
   let todos = JSON.parse(body);
   let myObject = {};
-  let value;
+  let tasksCompleted;
   for (let obj of todos) {
-    value = 0;
     if (obj.completed) {
-      let property = obj.userId;
-      if (myObject.hasOwnProperty(property)) {
-        property = String(property);
-        value = Number(myObject[property]);
+      let property = String(obj.userId);
+      if (property in myObject) {
+        tasksCompleted = Number(myObject[property]);
+      } else {
+        tasksCompleted = 0;
       }
       myObject = {
         ...myObject,
-        [property]: value++
+        [property]: tasksCompleted++
       };
     }
   }
