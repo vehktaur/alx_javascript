@@ -1,5 +1,3 @@
-#!usr/bin/node
-
 function welcome(fName, lName) {
   const firstName = fName;
   const lastName = lName;
@@ -8,5 +6,5 @@ function welcome(fName, lName) {
   function displayFullName() {
     alert(`Welcome ${fullName}`);
   }
-  displayFullName()
+  displayFullName();
 }
