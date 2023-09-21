@@ -2,21 +2,38 @@ const studentHogwarts = () => {
   let privateScore = 0;
   let name = null;
 
-  const changedScoreBy = (points) => {
+  const changeScoreBy = (points) => {
     privateScore += points;
   };
 
-  return () => {
-    const setName = (newName) => {
+  return {
+    setName: (newName) => {
       name = newName;
-    };
-
-    const rewardStudent = () => {
-      changedScoreBy(1);
-    };
-    const penalizeStudent = () => {
-      changedScoreBy(-1);
-    };
-    const getScore = () => `${name}: ${privateScore}`;
+    },
+    rewardStudent: () => {
+      changeScoreBy(1);
+    },
+    penalizeStudent: () => {
+      changeScoreBy(-1);
+    },
+    getScore: () => `${name}: ${privateScore}`
   };
 };
+
+const harry = studentHogwarts();
+harry.setName('Harry');
+harry.rewardStudent();
+harry.rewardStudent();
+harry.rewardStudent();
+harry.rewardStudent();
+
+console.log(harry.getScore());
+
+const draco = studentHogwarts();
+draco.setName('Draco');
+draco.rewardStudent();
+draco.penalizeStudent();
+draco.penalizeStudent();
+draco.penalizeStudent();
+
+console.log(draco.getScore());
