@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="root">
+      <h2>Login to the website</h2>
+      <input type="text" name="firstname" id="firstname" />
+      <input type="email" name="email" id="email" />
+      <button type="button" onclick="setCookies()">Log me in</button>
+      <br />
+      <h2>Cookies</h2>
+      <button type="button" onclick="showCookies()">Show the cookies</button>
+    </div>
+
+    <script>
+      const firstName = document.querySelector('#firstname');
+      const email = document.querySelector('#email');
+
+      const currentDate = Date.now();
+      let expires = currentDate + 846000000;
+      expires = new Date(expires);
+
+      const setCookies = () => {
+        document.cookie = `firstname = ${firstName.value}; expires = ${expires}`;
+        document.cookie = `email = ${email.value}; expires = ${expires}`;
+      };
+
+      const showCookies = () => {
+        const paragraph = document.createElement('p');
+        paragraph.innerHTML = `Email: ${getCookie(
+          'email'
+        )} - Firstname: ${getCookie('firstname')}`;
+        const root = document.querySelector('#root');
+        root.appendChild(paragraph);
+      };
+
+      const getCookie = (name) => {
+        let cookies = decodeURIComponent(document.cookie);
+        cookies = cookies.split(';');
+
+        for (let cookie of cookies) {
+          while (cookie.charAt(0) == ' ') {
+            cookie = cookie.slice(1);
+          }
+          if (cookie.slice(0, name.length) === name) {
+            return cookie.slice(name.length + 1);
+          }
+        }
+        return '';
+      };
+    </script>
+  </body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="root">
+      <h2>Login to the website</h2>
+      <input type="text" name="firstname" id="firstname" />
+      <input type="email" name="email" id="email" />
+      <button type="button" onclick="setCookies()">Log me in</button>
+      <br />
+      <h2>Cookies</h2>
+      <button type="button" onclick="showCookies()">Show the cookies</button>
+    </div>
+
+    <script>
+      const firstName = document.querySelector('#firstname');
+      const email = document.querySelector('#email');
+
+      const setCookies = () => {
+        document.cookie = `firstname = ${firstName.value}`;
+        document.cookie = `email = ${email.value}`;
+      };
+
+      const showCookies = () => {
+        const paragraph = document.createElement('p');
+        paragraph.innerHTML = `Cookies: ${document.cookie}`;
+        const root = document.querySelector('#root');
+        root.appendChild(paragraph);
+      };
+    </script>
+  </body>
+</html>
