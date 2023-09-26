@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Delete cookie and mini application</title>
+    <title>Use js-cookie</title>
     <style>
       .hidden {
         display: none;
@@ -28,10 +28,13 @@
           placeholder="Firstname"
         />
         <input type="email" name="email" id="email" placeholder="Email" />
-        <button type="button" onclick="setCookies()">Log me in</button>
+        <button type="button" onclick="setCookiesAndShowWelcomeMessage()">
+          Log me in
+        </button>
       </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
     <script>
       const root = document.querySelector('#root');
       const heading = document.querySelector('h1');
@@ -40,12 +43,8 @@
       const email = document.querySelector('#email');
       let isLoggedIn = false;
 
-      const currentDate = Date.now();
-      let expires = currentDate + 846000000;
-      expires = new Date(expires);
-
       const showForm = () => {
-        heading.textContent = `Welcome: ${getCookie('firstname')}`;
+        heading.textContent = `Welcome: ${Cookies.get('firstname')}`;
         form.classList.remove('hidden');
       };
       const hideForm = () => {
@@ -53,18 +52,15 @@
       };
 
       const deleteCookiesAndShowForm = () => {
-        let expiresNow = new Date(Date.now() - 100000000000000);
-
-        document.cookie = `firstname = ${firstName.value}; expires = ${expiresNow}`;
-        document.cookie = `email = ${email.value}; expires = ${expiresNow}`;
-
+        Cookies.remove('firstname');
+        Cookies.remove('email');
         showForm();
       };
 
       const showWelcomeMessageOrForm = () => {
         if (isLoggedIn) {
           hideForm();
-          heading.innerHTML = `Welcome: ${getCookie(
+          heading.innerHTML = `Welcome: ${Cookies.get(
             'firstname'
           )} <a class= "link" onclick = "deleteCookiesAndShowForm()" href= "">( logout )</a>`;
         } else {
@@ -72,26 +68,11 @@
         }
       };
 
-      const setCookies = () => {
-        document.cookie = `firstname = ${firstName.value}; expires = ${expires}`;
-        document.cookie = `email = ${email.value}; expires = ${expires}`;
+      const setCookiesAndShowWelcomeMessage = () => {
+        Cookies.set('firstname', firstName.value, { expires: 10 });
+        Cookies.set('email', email.value, { expires: 10 });
         isLoggedIn = true;
         showWelcomeMessageOrForm();
-      };
-
-      const getCookie = (name) => {
-        let cookies = decodeURIComponent(document.cookie);
-        cookies = cookies.split(';');
-
-        for (let cookie of cookies) {
-          while (cookie.charAt(0) == ' ') {
-            cookie = cookie.slice(1);
-          }
-          if (cookie.slice(0, name.length) === name) {
-            return cookie.slice(name.length + 1);
-          }
-        }
-        return '';
       };
     </script>
   </body>
