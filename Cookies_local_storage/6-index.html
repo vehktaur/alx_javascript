@@ -3,14 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Local storage</title>
+    <title>Session storage</title>
   </head>
   <body>
     <script>
       const availableItems = ['Shampoo', 'Soap', 'Sponge', 'Water'];
 
       const addItemToCart = (item) => {
-        localStorage.setItem(item, 'true');
+        sessionStorage.setItem(item, 'true');
       };
       const createStore = () => {
         const unorderedList = document.createElement('ul');
@@ -18,18 +18,19 @@
         availableItems.forEach((item) => {
           const listItem = document.createElement('li');
           listItem.textContent = item;
-          listItem.onclick = () => {addItemToCart(item)};
+          listItem.onclick = () => {
+            addItemToCart(item);
+          };
           unorderedList.appendChild(listItem);
-          console.log(item, unorderedList, listItem);
         });
       };
 
       const displayCart = () => {
-        if (localStorage.length === 0) {
+        if (sessionStorage.length === 0) {
           return;
         } else {
           const paragraph = document.createElement('p');
-          paragraph.textContent = `You previously had ${localStorage.length} items in your cart`;
+          paragraph.textContent = `You previously had ${sessionStorage.length} items in your cart`;
           document.body.appendChild(paragraph);
         }
       };
